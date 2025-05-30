@@ -11,10 +11,12 @@ struct ContentView: View {
     var body: some View {
         TabView() {
             WelcomeView()
-            ForEach(0..<4) { index in
+            
+            ForEach(Exercise.exercises.indices, id: \.self) { index in
                 ExerciseView(index: index)
             }
         }
+        
         .tabViewStyle(.page)
         //This line used to show and hide the page dots(PageControl)
         .indexViewStyle(
@@ -22,6 +24,7 @@ struct ContentView: View {
         
     }
 }
+
 
 #Preview {
     ContentView()
