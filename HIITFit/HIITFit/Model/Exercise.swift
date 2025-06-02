@@ -8,8 +8,8 @@
 import Foundation
 
 
-struct Exercise {
-  
+struct Exercise: Identifiable {
+    var id = UUID()
     var exerciseName: String
     var videoName: String
     
@@ -29,7 +29,7 @@ struct Exercise {
 }
 
 
-extension Exercise {
+extension Exercise  {
     
     static let exercises: [Exercise] = [
         .init(exerciseName: ExerciseEnum.squat.rawValue, videoName: ExerciseVideoNameEnum.squat.rawValue),

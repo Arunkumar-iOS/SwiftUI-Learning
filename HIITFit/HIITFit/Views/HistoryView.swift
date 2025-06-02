@@ -11,49 +11,51 @@ import SwiftUI
 
 struct HistoryView: View {
     
-    let today = Date()
-    let yesterday = Date().addingTimeInterval(-86400)
-    
-    let exercises1 = ["Squat", "Step Up", "Burpee", "Sun Salute"]
-    let exercises2 = ["Squat", "Step Up", "Burpee"]
-    
+    let history = HistoryStore()
+    @Binding var showHistory: Bool
     
     var body: some View {
-        VStack {
-            Text("History")
-                .font(.title)
-            //Default padding is 16. If you want custom padding you can set
-                .padding()
-        }
-        
-        //Form is a container view usually it used to show the arranged views.
-        Form {
+        ZStack(alignment: .topTrailing) {
             
-            Section(
-                header:
-                    Text(today.formatted(as: "MMM d"))
-                    .font(.headline)) {
-                        ForEach(exercises1, id: \.self) { exercise in
-                            Text(exercise)
-                                .font(.footnote)
-                                .foregroundStyle(.gray)
-                        }
+           VStack {
+                Text("History")
+                    .font(.title)
+                //Default padding is 16. If you want custom padding you can set
+                    .padding()
+                
+                //Form is a container view usually it used to show the arranged views.
+                Form {
+                    ForEach(history.exerciseDays) { day in
+                        Section(
+                            header:
+                                Text(day.date.formatted(as: "MMM d"))
+                                .font(.headline)) {
+                                    //Inside the section
+                                    //Again looping to get the exercise name.
+                                    ForEach(day.exercises, id: \.self) { exercise in
+                                        Text(exercise)
+                                    }
+                                }
                     }
-            Section(
-                header:
-                    Text(yesterday.formatted(as: "MMM d"))
-                    .font(.headline)) {
-                        ForEach(exercises2, id: \.self) { exercise in
-                            Text(exercise)
-                                .font(.footnote)
-                                .foregroundStyle(.gray)
-                        }
-                    }
+                }
+            }
+            //In Zstack last view you declare will be top of the all views
+            Button(action: {
+                showHistory.toggle()
+            }) {
+                Image(systemName: "xmark.circle")
+                    .padding()
+                    .font(.title)
+                    
+            }
+            
+            
+           
         }
         
     }
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-    HistoryView()
+    HistoryView(showHistory: .constant(true))
 }

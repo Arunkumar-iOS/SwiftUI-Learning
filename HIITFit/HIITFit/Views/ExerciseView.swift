@@ -11,10 +11,57 @@ import AVKit
 
 struct ExerciseView: View {
     
-    let interval: TimeInterval = 30
+    @Binding var selectedTab: Int
+    @State private var showHistory: Bool = false
+    
+    @State private var rating = 0
+    
+    @State private var showSuccess = false
+    
+    //Check whether index reaches the last count. If it is last count it returns true.
+    var lastExercise: Bool {
+      index + 1 == Exercise.exercises.count
+    }
+    
+    @State private var timerDone = false
+    @State private var showTimer = false
     
     var exercise: Exercise {
       Exercise.exercises[index]
+    }
+    
+    //Buttons
+    var startButton: some View {
+        Button("Start Exercise", action: {
+            showTimer.toggle()
+        })
+    }
+    
+    var doneButton: some View {
+        Button("Done", action: {
+            timerDone = false
+            showTimer.toggle()
+
+            if lastExercise {
+               showSuccess.toggle()
+             } else {
+               selectedTab += 1
+             }
+        })
+        .disabled(!timerDone)
+        .sheet(isPresented: $showSuccess) {
+            SuccessView( selectedTab: $selectedTab)
+                .presentationDetents([.medium, .large])
+        }
+    }
+    
+    var historyButton: some View {
+        Button("History", action: {
+            showHistory.toggle()
+        })
+        .sheet(isPresented: $showHistory) {
+            HistoryView(showHistory: $showHistory)
+        }
     }
    
     let index: Int
@@ -23,24 +70,31 @@ struct ExerciseView: View {
         //Using GeometryReader we can get the screen height and width.
         GeometryReader { geometry in
             VStack {
-                HeaderView(exerciseName: exercise.exerciseName)
+                HeaderView(selectedTab: $selectedTab, titleText: exercise.exerciseName)
                     .padding(.bottom)
                 VideoPlayerView(videoName: exercise.videoName)
-                //We can get size like this.
+                //We can get the size of frame like this.
                     .frame(height: geometry.size.height * 0.45)
-                Text(Date().addingTimeInterval(interval), style: .timer)
-                  .font(.system(size: geometry.size.height * 0.07))
-                Button("Start/Done", action: {
-                    print("Start button Tapped")
-                })
+               
+                HStack(spacing: 150) {
+                    Group {
+                        startButton
+                        doneButton
+                    }
                     .font(.title3)
                     .padding()
-                RatingView()
-                    .padding()
+                }
+                //Show Timer
+                 if showTimer {
+                   TimerView(
+                     timerDone: $timerDone,
+                     size: geometry.size.height * 0.07
+                   )
+                 }
                 Spacer()
-                Button("History", action: {
-                    print("History Button Tapped")
-                })
+                RatingView(rating: $rating)
+                    .padding()
+                historyButton
                     .padding(.bottom)
             }
             
@@ -52,7 +106,6 @@ struct ExerciseView: View {
 
 
 #Preview {
-    ExerciseView(index: 0)
+    ExerciseView(selectedTab: .constant(3), index: 3)
 }
-
 

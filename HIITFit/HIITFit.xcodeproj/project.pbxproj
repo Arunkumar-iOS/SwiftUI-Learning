@@ -312,7 +312,7 @@
 				6E3BAF722DE9680A0013C056 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		6E3BAF732DE9680A0013C056 /* Build configuration list for PBXNativeTarget "HIITFit" */ = {
 			isa = XCConfigurationList;
@@ -321,7 +321,7 @@
 				6E3BAF752DE9680A0013C056 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

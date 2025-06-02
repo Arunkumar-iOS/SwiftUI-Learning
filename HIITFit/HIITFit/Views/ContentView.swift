@@ -8,12 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    //Declaring this here means ContentView owns this.
+    @State private var selectedTab = 9
+
     var body: some View {
-        TabView() {
-            WelcomeView()
-            
+        TabView(selection: $selectedTab) {
+            WelcomeView(selectedTab: $selectedTab)  // 1
+                .tag(9)  // 2
             ForEach(Exercise.exercises.indices, id: \.self) { index in
-                ExerciseView(index: index)
+                ExerciseView(selectedTab: $selectedTab, index: index)
+                    .tag(index)  // 3
             }
         }
         
