@@ -11,7 +11,7 @@ import SwiftUI
 
 struct HistoryView: View {
     
-    let history = HistoryStore()
+    @Binding var historyStore: HistoryStore
     @Binding var showHistory: Bool
     
     var body: some View {
@@ -25,7 +25,7 @@ struct HistoryView: View {
                 
                 //Form is a container view usually it used to show the arranged views.
                 Form {
-                    ForEach(history.exerciseDays) { day in
+                    ForEach(historyStore.exerciseDays) { day in
                         Section(
                             header:
                                 Text(day.date.formatted(as: "MMM d"))
@@ -57,5 +57,5 @@ struct HistoryView: View {
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-    HistoryView(showHistory: .constant(true))
+    HistoryView(historyStore: .constant(HistoryStore()),showHistory: .constant(true))
 }

@@ -14,6 +14,7 @@ struct WelcomeView: View {
     
     @State private var showHistory: Bool = false
     @Binding var selectedTab: Int
+    @Binding var historyStore: HistoryStore
     
     
     var body: some View {
@@ -26,7 +27,7 @@ struct WelcomeView: View {
                     showHistory.toggle()
                 })
                 .sheet(isPresented: $showHistory) {
-                    HistoryView(showHistory: $showHistory)
+                    HistoryView(historyStore: $historyStore, showHistory: $showHistory)
                 }
                     .padding(.bottom)
                 
@@ -68,5 +69,5 @@ struct WelcomeView: View {
 
 
 #Preview(traits: .sizeThatFitsLayout) {
-    WelcomeView(selectedTab: .constant(9))
+    WelcomeView(selectedTab: .constant(9), historyStore: .constant(HistoryStore()))
 }

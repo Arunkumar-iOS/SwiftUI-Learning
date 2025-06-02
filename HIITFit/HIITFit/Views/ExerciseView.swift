@@ -11,6 +11,8 @@ import AVKit
 
 struct ExerciseView: View {
     
+    @Binding var historyStore: HistoryStore
+    
     @Binding var selectedTab: Int
     @State private var showHistory: Bool = false
     
@@ -39,14 +41,20 @@ struct ExerciseView: View {
     
     var doneButton: some View {
         Button("Done", action: {
+            print("Done Button tapped and code executed \(exercise.exerciseName)")
             timerDone = false
             showTimer.toggle()
+            
+            //Add exercise to history store.
+            historyStore.addDoneExercise(exercise.exerciseName)
 
             if lastExercise {
                showSuccess.toggle()
              } else {
                selectedTab += 1
              }
+            
+           
         })
         .disabled(!timerDone)
         .sheet(isPresented: $showSuccess) {
@@ -60,7 +68,7 @@ struct ExerciseView: View {
             showHistory.toggle()
         })
         .sheet(isPresented: $showHistory) {
-            HistoryView(showHistory: $showHistory)
+            HistoryView(historyStore: $historyStore, showHistory: $showHistory)
         }
     }
    
@@ -106,6 +114,6 @@ struct ExerciseView: View {
 
 
 #Preview {
-    ExerciseView(selectedTab: .constant(3), index: 3)
+    ExerciseView(historyStore: .constant(HistoryStore()), selectedTab: .constant(3), index: 3)
 }
 
