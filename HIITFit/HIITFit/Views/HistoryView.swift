@@ -11,7 +11,7 @@ import SwiftUI
 
 struct HistoryView: View {
     
-    @Binding var historyStore: HistoryStore
+    @EnvironmentObject var historyStore: HistoryStore
     @Binding var showHistory: Bool
     
     var body: some View {
@@ -57,5 +57,5 @@ struct HistoryView: View {
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-    HistoryView(historyStore: .constant(HistoryStore()),showHistory: .constant(true))
+    HistoryView(showHistory: .constant(true))
 }

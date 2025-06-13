@@ -12,6 +12,10 @@ struct HIITFitApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .onAppear {
+                  print(URL.documentsDirectory)
+                }
+
         }
     }
 }

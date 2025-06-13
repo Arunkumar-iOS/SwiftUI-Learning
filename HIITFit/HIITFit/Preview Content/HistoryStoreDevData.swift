@@ -9,7 +9,7 @@ import Foundation
 
 //It's so handy, when you create a extension files we can move this to anywhere instead of scrolling through all the codes in the same file.
 extension HistoryStore {
-  mutating func createDevData() {
+   func createDevData() {
     // Development data
     exerciseDays = [
         //Here, this date you did a following exercises.

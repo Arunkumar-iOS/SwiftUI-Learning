@@ -11,14 +11,16 @@ import AVKit
 
 struct ExerciseView: View {
     
-    @Binding var historyStore: HistoryStore
+    @EnvironmentObject var historyStore: HistoryStore
+    
+    //State Property
+    @State private var showHistory: Bool = false
+    @State private var showSuccess = false
+    
+    
+    //Binding Property
     
     @Binding var selectedTab: Int
-    @State private var showHistory: Bool = false
-    
-    @State private var rating = 0
-    
-    @State private var showSuccess = false
     
     //Check whether index reaches the last count. If it is last count it returns true.
     var lastExercise: Bool {
@@ -34,9 +36,9 @@ struct ExerciseView: View {
     
     //Buttons
     var startButton: some View {
-        Button("Start Exercise", action: {
+        RaisedButton(buttonText: "Start Exercise") {
             showTimer.toggle()
-        })
+        }
     }
     
     var doneButton: some View {
@@ -68,7 +70,7 @@ struct ExerciseView: View {
             showHistory.toggle()
         })
         .sheet(isPresented: $showHistory) {
-            HistoryView(historyStore: $historyStore, showHistory: $showHistory)
+            HistoryView(showHistory: $showHistory)
         }
     }
    
@@ -100,7 +102,7 @@ struct ExerciseView: View {
                    )
                  }
                 Spacer()
-                RatingView(rating: $rating)
+                RatingView(exerciseIndex: index)
                     .padding()
                 historyButton
                     .padding(.bottom)
@@ -114,6 +116,6 @@ struct ExerciseView: View {
 
 
 #Preview {
-    ExerciseView(historyStore: .constant(HistoryStore()), selectedTab: .constant(3), index: 3)
+    ExerciseView(selectedTab: .constant(3), index: 3)
 }
 

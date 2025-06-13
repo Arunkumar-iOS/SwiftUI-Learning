@@ -14,8 +14,30 @@ struct WelcomeView: View {
     
     @State private var showHistory: Bool = false
     @Binding var selectedTab: Int
-    @Binding var historyStore: HistoryStore
+    @EnvironmentObject var historyStore: HistoryStore
     
+    //Create a computed property for button
+    var getStartedButton: some View {
+      RaisedButton(buttonText: "Get Started") {
+        selectedTab = 0
+      }
+      .padding()
+    }
+    
+    var historyButton: some View {
+        Button(
+            action: {
+                showHistory = true
+            }, label: {
+                Text("History")
+                    .fontWeight(.bold)
+                    .padding([.leading, .trailing], 5)
+            })
+        .padding(.bottom, 10)
+        .buttonStyle(EmbossedButtonStyle())
+    }
+
+
     
     var body: some View {
         ZStack {
@@ -23,11 +45,9 @@ struct WelcomeView: View {
                 HeaderView(selectedTab: $selectedTab, titleText: "Welcome")
                     .padding(.bottom)
                 Spacer()
-                Button("History", action: {
-                    showHistory.toggle()
-                })
+                historyButton
                 .sheet(isPresented: $showHistory) {
-                    HistoryView(historyStore: $historyStore, showHistory: $showHistory)
+                    HistoryView(showHistory: $showHistory)
                 }
                     .padding(.bottom)
                 
@@ -44,30 +64,16 @@ struct WelcomeView: View {
                         .resizedToFill(width: 240, height: 240)
                 }
                 
-                Button(action: {
-                    selectedTab = 0
-                }) {
-                    HStack {
-                        Text("Get Started")
-                        Image(systemName: "arrow.right.circle")
-                    }
-                    .padding()
-                    .font(.title2)
-                    .background(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color.gray, lineWidth: 2))
-                }
-                .padding(.top)
+               getStartedButton
+
             }
-            
-            
-            
-            
         }
     }
 }
 
 
 #Preview(traits: .sizeThatFitsLayout) {
-    WelcomeView(selectedTab: .constant(9), historyStore: .constant(HistoryStore()))
+    WelcomeView(selectedTab: .constant(9))
 }
+
+
