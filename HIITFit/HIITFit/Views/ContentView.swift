@@ -25,7 +25,9 @@ struct ContentView: View {
                     .tag(index)  // 3
             }
         }
+        .background(GradientBackground())
         .environmentObject(historyStore)
+        
         
         /*
        //Show alert when you have no plist

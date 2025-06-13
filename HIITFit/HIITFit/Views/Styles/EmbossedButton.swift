@@ -35,13 +35,14 @@ struct EmbossedButtonStyle: ButtonStyle {
 
     }
     
-    @ViewBuilder
+   @ViewBuilder
     func shape(size: CGSize) -> some View {
         
       switch buttonShape {
       case .circle:
         Circle()
           .stroke(Color.background, lineWidth: 2)
+          //To make a content in a centre, this calculation will be used.
           .frame(
             width: max(size.width, size.height),
             height: max(size.width, size.height))

@@ -40,35 +40,37 @@ struct WelcomeView: View {
 
     
     var body: some View {
-        ZStack {
-            VStack {
-                HeaderView(selectedTab: $selectedTab, titleText: "Welcome")
-                    .padding(.bottom)
-                Spacer()
-                historyButton
-                .sheet(isPresented: $showHistory) {
-                    HistoryView(showHistory: $showHistory)
+        VStack(spacing: 0) {
+            HeaderView(
+                selectedTab: $selectedTab,
+                titleText: "Welcome")
+          //  Spacer()
+            // container view
+            ContainerView {
+                ViewThatFits {
+                  VStack {
+                    WelcomeView.images
+                    WelcomeView.welcomeText
+                    getStartedButton
+                    Spacer()
+                    historyButton
+                  }
+                  VStack {
+                    WelcomeView.welcomeText
+                    getStartedButton
+                    Spacer()
+                    historyButton
+                  }
                 }
-                    .padding(.bottom)
-                
             }
-            VStack {
-                HStack(alignment: .bottom) {
-                    VStack(alignment: .leading) {
-                        Text("Get fit")
-                            .font(.largeTitle)
-                        Text("with high intensity interval training")
-                            .font(.headline)
-                    }
-                    Image("step-up")
-                        .resizedToFill(width: 240, height: 240)
-                }
-                
-               getStartedButton
-
-            }
+            
+        }
+        .background(GradientBackground())
+        .sheet(isPresented: $showHistory) {
+            HistoryView(showHistory: $showHistory)
         }
     }
+
 }
 
 

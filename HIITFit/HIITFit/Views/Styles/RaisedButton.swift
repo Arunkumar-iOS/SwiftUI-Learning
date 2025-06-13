@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 
-//Extension for text that use all the modifiers commonly.
+//Extension for text that use these all modifiers commonly.
 extension Text {
     func raisedButtonTextStyle() -> some View {
     self
