@@ -13,6 +13,8 @@ struct SingleCardView: View  {
     
     @State private var currentModal: ToolbarSelection?
     
+    @Binding var card: Card
+ /*
     //View Property
     var content: some View {
         ZStack {
@@ -26,6 +28,7 @@ struct SingleCardView: View  {
                     .minimumScaleFactor(0.01)
                     .lineLimit(1)
             }
+            //This view modifier takes care of gestures.
             .resizableView()
             
             Circle()
@@ -34,10 +37,17 @@ struct SingleCardView: View  {
         }
     }
 
+  */
+    
+    //View property
+    var content: some View {
+        CardDetailView(card: $card)
+    }
     
     var body: some View {
         NavigationStack {
             content
+            //This holds the cards toolbar like top and bottom of cards screen.
                 .cardToolbar(currentModal: $currentModal)
 
         }
@@ -48,5 +58,5 @@ struct SingleCardView: View  {
 
 
 #Preview {
-    SingleCardView()
+    SingleCardView(card: .constant(initialCards[0]))
 }

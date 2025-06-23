@@ -48,3 +48,7 @@ extension View {
     }
 }
 
+#Preview {
+  Color.yellow
+    .modifier(CardToolbar(currentModal: .constant(nil)))
+}

@@ -11,7 +11,7 @@ import SwiftUI
 
 struct ResizableView: ViewModifier {
     
-    @State private var transform = Transform()
+    @Binding var transform: Transform
     
     @State private var previousOffset: CGSize = .zero
     @State private var previousRotation: Angle = .zero
@@ -56,6 +56,11 @@ struct ResizableView: ViewModifier {
         
         content
             .frame(width: transform.size.width, height: transform.size.height)
+        
+            .onAppear {
+              previousOffset = transform.offset
+            }
+
            
         //All dimensions are coming from model.
         //Position here matters check properly
@@ -69,17 +74,20 @@ struct ResizableView: ViewModifier {
 
 
 #Preview {
+  @Previewable @State var transform = Transform()
   RoundedRectangle(cornerRadius: 30)
     .foregroundStyle(.blue)
-    .resizableView()
+    .resizableView(transform: $transform)
 }
+
 
 
 
 //MARK:- Extension View
 extension View {
-  func resizableView() -> some View {
-    modifier(ResizableView())
-  }
+    func resizableView(transform: Binding<Transform>) -> some View {
+        modifier(ResizableView(transform: transform))
+    }
+    
 }
 

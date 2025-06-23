@@ -11,23 +11,33 @@ import SwiftUI
 
 struct CardsListView: View  {
     
+    //Local state property
     @State private var isPresented = false
+    @State private var selectedCard: Card?
+    
+    //Shared state property
+    @EnvironmentObject var store: CardStore
     
     var body: some View {
         
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
-                ForEach(0..<10) { _ in
-                    CardThumbnail()
+                ForEach(store.cards) { card in
+                    CardThumbnail(card: card)
                         .onTapGesture {
-                            isPresented = true
+                            selectedCard = card
                         }
                 }
             }
         }
-        //To show a full screen model.
-        .fullScreenCover(isPresented: $isPresented) {
-            SingleCardView()
+        //To show a full screen modal.
+        .fullScreenCover(item: $selectedCard) { card in
+            if let index = store.index(for: card) {
+              SingleCardView(card: $store.cards[index])
+            } else {
+              fatalError("Unable to locate selected card")
+            }
+
         }
     }
 }
@@ -35,4 +45,5 @@ struct CardsListView: View  {
 
 #Preview {
     CardsListView()
+        .environmentObject(CardStore(defaultData: true))
 }
