@@ -10,6 +10,9 @@ import SwiftUI
 struct MetToolbarModifier: ViewModifier {
     @Binding var query: String
     @Binding var showQueryField: Bool
+    @Binding var fetchObjectTask: Task<Void, Error>?
+    
+    @ObservedObject var store: TheMetStore
 
     func body(content: Content) -> some View {
         content
@@ -27,7 +30,17 @@ struct MetToolbarModifier: ViewModifier {
             }
             .alert("Search the Met", isPresented: $showQueryField) {
               TextField("Search the Met", text: $query)
-              Button("Search") { }
+              Button("Search") {
+                  fetchObjectTask?.cancel()
+                  fetchObjectTask = Task {
+                    do {
+                        store.artObjects = []
+                      try await store.fetchObjects(for: query)
+                    } catch {}
+                  }
+
+                  
+              }
             }
 
     }
@@ -35,8 +48,20 @@ struct MetToolbarModifier: ViewModifier {
 
 
 extension View {
-    func metToolbarModifier(query: Binding<String>, showQueryField: Binding<Bool>) -> some View {
-        modifier(MetToolbarModifier(query: query, showQueryField: showQueryField))
+    func metToolbarModifier(
+        query: Binding<String>,
+        showQueryField: Binding<Bool>,
+        store: TheMetStore,
+        fetchObjectTask: Binding<Task<Void, Error>?>
+    ) -> some View {
+        modifier(
+            MetToolbarModifier(
+                query: query,
+                showQueryField: showQueryField,
+                fetchObjectTask: fetchObjectTask,
+                store: store
+            )
+        )
     }
 }
 
@@ -44,6 +69,8 @@ struct ContentView: View {
     
     @StateObject var theMetStore = TheMetStore()
     
+    //To cancel the running task, use this.
+    @State private var fetchObjectsTask: Task<Void, Error>?
     @State private var query = "rhino"
     @State private var showQueryField = false
 
@@ -108,7 +135,7 @@ struct ContentView: View {
                 
                 .navigationTitle("The Met")
                 //Extracted a toolbar as View Modifier.
-                .metToolbarModifier(query: $query, showQueryField: $showQueryField)
+                .metToolbarModifier(query: $query, showQueryField: $showQueryField, store: theMetStore, fetchObjectTask: $fetchObjectsTask)
                 
                 .navigationDestination(for: URL.self) { url in
                     SafariView(url: url)
@@ -118,6 +145,19 @@ struct ContentView: View {
                 .navigationDestination(for: ArtObject.self) { object in
                     ObjectDetailView(object: object)
                 }
+            }
+            
+            .overlay {
+              if theMetStore.artObjects.isEmpty { ProgressView() }
+            }
+
+        }
+        //Work of task is to call an async function from main thread. Its like creating a bridge.
+        .task {
+            do {
+                try await theMetStore.fetchObjects(for: query)
+            } catch {
+                print("Error loading art objects: \(error)")
             }
         }
     }
