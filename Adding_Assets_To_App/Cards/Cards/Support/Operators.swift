@@ -1,5 +1,5 @@
 /// Copyright (c) 2025 Kodeco Inc.
-/// 
+///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
@@ -32,70 +32,26 @@
 
 import SwiftUI
 
-struct StickerModal: View {
-    
-    @State private var stickerNames: [String] = []
-
-    var body: some View {
-      ScrollView {
-        ForEach(stickerNames, id: \.self) { sticker in
-          Image(uiImage: image(from: sticker))
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-        }
-      }
-      .onAppear {
-        stickerNames = Self.loadStickers()
-      }
-    }
-
-    
-    static func loadStickers() -> [String] {
-      var themes: [URL] = []
-      var stickerNames: [String] = []
-        
-        // 1
-        let fileManager = FileManager.default
-        if let resourcePath = Bundle.main.resourcePath,
-          // 2 // get all folder inside a Sticker folder.
-          let enumerator = fileManager.enumerator(
-            at: URL(fileURLWithPath: resourcePath + "/Stickers"),
-            includingPropertiesForKeys: nil,
-            options: [
-              .skipsSubdirectoryDescendants,
-              .skipsHiddenFiles
-            ]) {
-              // 3 Collect subfolder as URL's.
-              for case let url as URL in enumerator
-              where url.hasDirectoryPath {
-                themes.append(url)
-              }
-        }
-        
-        for theme in themes {
-          if let files = try?
-          fileManager.contentsOfDirectory(atPath: theme.path) {
-            for file in files {
-              stickerNames.append(theme.path + "/" + file)
-            }
-          }
-        }
-        return stickerNames
-
-
-    }
-    
-    func image(from path: String) -> UIImage {
-        print(
-         "loading:",
-         NSString(string: path).lastPathComponent)
-      return UIImage(named: path) ?? UIImage.error
-    }
-
-
-
+func + (left: CGSize, right: CGSize) -> CGSize {
+  CGSize(
+    width: left.width + right.width,
+    height: left.height + right.height)
 }
 
-#Preview {
-    StickerModal()
+func * (left: CGSize, right: CGFloat) -> CGSize {
+  CGSize(
+    width: left.width * right,
+    height: left.height * right)
+}
+
+func *= (left: inout CGSize, right: Double) {
+  left = CGSize(
+    width: left.width * right,
+    height: left.height * right)
+}
+
+func / (left: CGSize, right: CGFloat) -> CGSize {
+  CGSize(
+    width: left.width / right,
+    height: left.height / right)
 }

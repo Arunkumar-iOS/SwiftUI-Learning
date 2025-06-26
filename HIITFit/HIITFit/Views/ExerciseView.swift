@@ -88,11 +88,11 @@ struct ExerciseView: View {
                 selectedTab: $selectedTab,
                 titleText: Exercise.exercises[index].exerciseName)
                 // It gives full width of the screen.
-              .frame(height: geometry.size.height * 0.2)
+             // .frame(height: geometry.size.height * 0.2)
                 // It gives a container frame size like where it proposed.
-//              .containerRelativeFrame(.vertical) { length, _ in
-//                length * 0.2
-//              }
+              .containerRelativeFrame(.vertical) { length, _ in
+                length * 0.2
+              }
               ContainerView {
                 VStack {
                   VideoPlayerView(videoName: exercise.videoName)

@@ -1,15 +1,15 @@
 /// Copyright (c) 2025 Kodeco Inc.
-/// 
+///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-/// 
+///
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-/// 
+///
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -17,7 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-/// 
+///
 /// This project and source code may use libraries or frameworks that are
 /// released under various Open-Source licenses. Use of those libraries and
 /// frameworks are governed by their own individual licenses.
@@ -32,70 +32,36 @@
 
 import SwiftUI
 
-struct StickerModal: View {
-    
-    @State private var stickerNames: [String] = []
+struct CardsListView: View {
+  @EnvironmentObject var store: CardStore
+  @State private var selectedCard: Card?
 
-    var body: some View {
-      ScrollView {
-        ForEach(stickerNames, id: \.self) { sticker in
-          Image(uiImage: image(from: sticker))
-            .resizable()
-            .aspectRatio(contentMode: .fit)
+  var body: some View {
+    list
+      .fullScreenCover(item: $selectedCard) { card in
+        if let index = store.index(for: card) {
+          SingleCardView(card: $store.cards[index])
+        } else {
+          fatalError("Unable to locate selected card")
         }
       }
-      .onAppear {
-        stickerNames = Self.loadStickers()
-      }
-    }
+  }
 
-    
-    static func loadStickers() -> [String] {
-      var themes: [URL] = []
-      var stickerNames: [String] = []
-        
-        // 1
-        let fileManager = FileManager.default
-        if let resourcePath = Bundle.main.resourcePath,
-          // 2 // get all folder inside a Sticker folder.
-          let enumerator = fileManager.enumerator(
-            at: URL(fileURLWithPath: resourcePath + "/Stickers"),
-            includingPropertiesForKeys: nil,
-            options: [
-              .skipsSubdirectoryDescendants,
-              .skipsHiddenFiles
-            ]) {
-              // 3 Collect subfolder as URL's.
-              for case let url as URL in enumerator
-              where url.hasDirectoryPath {
-                themes.append(url)
-              }
-        }
-        
-        for theme in themes {
-          if let files = try?
-          fileManager.contentsOfDirectory(atPath: theme.path) {
-            for file in files {
-              stickerNames.append(theme.path + "/" + file)
+  var list: some View {
+    ScrollView(showsIndicators: false) {
+      VStack {
+        ForEach(store.cards) { card in
+          CardThumbnail(card: card)
+            .onTapGesture {
+              selectedCard = card
             }
-          }
         }
-        return stickerNames
-
-
+      }
     }
-    
-    func image(from path: String) -> UIImage {
-        print(
-         "loading:",
-         NSString(string: path).lastPathComponent)
-      return UIImage(named: path) ?? UIImage.error
-    }
-
-
-
+  }
 }
 
 #Preview {
-    StickerModal()
+  CardsListView()
+    .environmentObject(CardStore(defaultData: true))
 }

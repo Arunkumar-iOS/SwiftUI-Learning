@@ -1,5 +1,5 @@
 /// Copyright (c) 2025 Kodeco Inc.
-/// 
+///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
@@ -32,70 +32,42 @@
 
 import SwiftUI
 
-struct StickerModal: View {
-    
-    @State private var stickerNames: [String] = []
+struct CardElementView: View {
+  let element: CardElement
 
-    var body: some View {
-      ScrollView {
-        ForEach(stickerNames, id: \.self) { sticker in
-          Image(uiImage: image(from: sticker))
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-        }
-      }
-      .onAppear {
-        stickerNames = Self.loadStickers()
-      }
+  var body: some View {
+    if let element = element as? ImageElement {
+      ImageElementView(element: element)
     }
-
-    
-    static func loadStickers() -> [String] {
-      var themes: [URL] = []
-      var stickerNames: [String] = []
-        
-        // 1
-        let fileManager = FileManager.default
-        if let resourcePath = Bundle.main.resourcePath,
-          // 2 // get all folder inside a Sticker folder.
-          let enumerator = fileManager.enumerator(
-            at: URL(fileURLWithPath: resourcePath + "/Stickers"),
-            includingPropertiesForKeys: nil,
-            options: [
-              .skipsSubdirectoryDescendants,
-              .skipsHiddenFiles
-            ]) {
-              // 3 Collect subfolder as URL's.
-              for case let url as URL in enumerator
-              where url.hasDirectoryPath {
-                themes.append(url)
-              }
-        }
-        
-        for theme in themes {
-          if let files = try?
-          fileManager.contentsOfDirectory(atPath: theme.path) {
-            for file in files {
-              stickerNames.append(theme.path + "/" + file)
-            }
-          }
-        }
-        return stickerNames
-
-
+    if let element = element as? TextElement {
+      TextElementView(element: element)
     }
-    
-    func image(from path: String) -> UIImage {
-        print(
-         "loading:",
-         NSString(string: path).lastPathComponent)
-      return UIImage(named: path) ?? UIImage.error
+  }
+}
+
+struct ImageElementView: View {
+  let element: ImageElement
+
+  var body: some View {
+    element.image
+      .resizable()
+      .aspectRatio(contentMode: .fit)
+  }
+}
+
+struct TextElementView: View {
+  let element: TextElement
+
+  var body: some View {
+    if !element.text.isEmpty {
+      Text(element.text)
+        .font(.custom(element.textFont, size: 200))
+        .foregroundStyle(element.textColor)
+        .scalableText()
     }
-
-
-
+  }
 }
 
 #Preview {
-    StickerModal()
+  CardElementView(element: initialElements[0])
 }
