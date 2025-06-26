@@ -32,6 +32,10 @@ Add them to your Info.plist like this:
     </dict>
 </dict>
 ```
+If above not works try this. Add icons names in build Settings as shown in image below
+
+![](images/3.png)
+
 🧑‍💻 How to switch dynamically:
 
  ```swift
