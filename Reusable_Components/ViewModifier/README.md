@@ -7,6 +7,7 @@
 
 ✅ What is ViewModifier in SwiftUI?
 
+* We can add a styling and behaviour to the existing views.
 * A ViewModifier is a way to encapsulate view styling or behavior logic that can be reused across different views. Applying a ViewModifier to a view results in a new version of that view with modified appearance or behavior.
 
 🧩 1. Use a ViewModifier Struct When:
