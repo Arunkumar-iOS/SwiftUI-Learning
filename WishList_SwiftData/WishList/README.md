@@ -10,10 +10,10 @@ ContentUnavailableView is a built-in SwiftUI view introduced in iOS 17 to easily
 
 Instead of building your own empty state with VStack, icons, and labels, Apple gives you a clean, consistent way to display something like:
 
-🔍 "No search results"
-📭 "No emails"
-📋 "No tasks yet"
-🌐 "No internet connection"
+*🔍 "No search results"
+*📭 "No emails"
+*📋 "No tasks yet"
+*🌐 "No internet connection"
 
 
 ✅ Basic Usage
