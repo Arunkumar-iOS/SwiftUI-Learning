@@ -6,17 +6,19 @@
 ✅ When to Use ViewModifier vs View Extension
 
 ✅ What is ViewModifier in SwiftUI?
-A ViewModifier is a way to encapsulate view styling or behavior logic that can be reused across different views. Applying a ViewModifier to a view results in a new version of that view with modified appearance or behavior.
+
+* A ViewModifier is a way to encapsulate view styling or behavior logic that can be reused across different views. Applying a ViewModifier to a view results in a new version of that view with modified appearance or behavior.
 
 🧩 1. Use a ViewModifier Struct When:
 
-The modifier needs to manage or receive external state (like a @Binding or internal logic).
-You want customization, parameterization, or reuse with dynamic behavior.
-You're applying a more complex transformation to a view.
-You want to reduce repetition by reusing the same modifier logic.
+* The modifier needs to manage or receive external state (like a @Binding or internal logic).
+* You want customization, parameterization, or reuse with dynamic behavior.
+* You're applying a more complex transformation to a view.
+* You want to reduce repetition by reusing the same modifier logic.
 
 📝 Using ViewModifier With and Without Parameters
-You can create a ViewModifier with or without initialization parameters depending on whether the modifier needs any external input (like @Binding, Bool, Color, etc.).
+
+* You can create a ViewModifier with or without initialization parameters depending on whether the modifier needs any external input (like @Binding, Bool, Color, etc.).
 
 ✅ With Parameters (Stateful or Configurable Modifier)
 
@@ -93,7 +95,7 @@ extension View {
 ```
 
 Refer Cards Project if you have doubt.
-- [Reference Project](Cards/)
+- [Reference Project](../../Cards/)
 
 
 🧾 2. Use a View Extension Method (No Struct) When:
