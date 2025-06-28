@@ -19,6 +19,9 @@ A personal reference for SwiftUI basics, view modifiers, MVVM, and navigation pa
 - [🔄 ForEach](#-foreach)
 - [🎨 Fonts & Colors](#-fonts--colors)
 - [🟦 Empty State View](#-empty-state-view)
+- [✅ Swipe Left & Right in List](#-swipe-left--right-in-list)
+- [🛠 Toolbar Usage](#-toolbar-usage)
+- [📍 Place a View at the Bottom of the Screen](#-place-a-view-at-the-bottom-of-the-screen)
 - [💡 Tips](#-tips)
 
 ---
@@ -44,6 +47,121 @@ NavigationStack {
 ```swift
 NavigationLink("Go to Details", destination: DetailView())
 ```
+
+---
+## ✅ Swipe Left & Right in List
+
+Use `.swipeActions(edge:)` to add buttons when swiping left or right on a row in a `List`.
+
+```swift
+.swipeActions(edge: .leading) {
+    Button("Delete", role: .destructive) {
+        withAnimation {
+            modelContext.delete(item)
+        }
+    }
+}
+.swipeActions(edge: .trailing) {
+    Button {
+        print("Swipe Trailing Action")
+    } label: {
+        Text("Edit")
+            .background(Color.green)
+    }
+}
+
+---
+
+## 🛠 Toolbar Usage
+####🔹 Single Toolbar Button
+
+- Use when you only need one toolbar button, like a "+" or "Edit" button.
+- Use `.toolbar` to add buttons to navigation bars, bottom toolbars, or even above the keyboard.
+
+```swift
+.toolbar {
+    ToolbarItem(placement: .navigationBarTrailing) {
+        Button(action: {
+            // Action
+        }) {
+            Image(systemName: "plus")
+        }
+    }
+}
+
+#### 🔹 Multiple Toolbar Buttons (Grouped)
+ - Use ToolbarItemGroup when you want to display more than one item (like Edit + Delete).
+ 
+.toolbar {
+    ToolbarItemGroup(placement: .navigationBarTrailing) {
+        Button {
+            // Edit
+        } label: {
+            Image(systemName: "pencil")
+        }
+
+        Button(role: .destructive) {
+            // Delete
+        } label: {
+            Image(systemName: "trash")
+        }
+    }
+}
+
+---
+
+## 📍 Place a View at the Bottom of the Screen
+
+Two common ways to place UI at the bottom of the screen in SwiftUI:
+
+---
+
+### 🧷 1. View That Follows the Keyboard (`.toolbar(.keyboard)`)
+
+Use this when you want a **button or input field to appear only when the keyboard is open** — great for form submissions or chat apps.
+
+```swift
+@State private var itemName = ""
+
+VStack {
+    TextField("Enter item", text: $itemName)
+        .textFieldStyle(.roundedBorder)
+        .padding()
+    
+    Spacer()
+}
+.toolbar {
+    ToolbarItemGroup(placement: .keyboard) {
+        TextField("", text: $itemName)
+        Button("Add") {
+            print("Add button tapped")
+        }
+    }
+}
+```
+
+🧠 .toolbar(.keyboard) automatically sticks above the keyboard and disappears when it's closed.
+
+
+### 🛠️ 2. Persistent Bottom View (.safeAreaInset)
+Use this when you want a **view to always stay at the bottom, regardless of whether the keyboard is open or not**
+
+```swift
+.safeAreaInset(edge: .bottom) {
+    HStack {
+        Text("Total: ₹399")
+        Spacer()
+        Button("Checkout") {
+            // Perform checkout
+        }
+        .buttonStyle(.borderedProminent)
+    }
+    .padding()
+    .background(.ultraThinMaterial)
+}
+```
+✅ This stays in the safe area and won’t overlap with the home indicator or keyboard (unless manually adjusted).
+
 
 ---
 
