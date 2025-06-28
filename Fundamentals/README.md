@@ -26,6 +26,8 @@ A personal reference for SwiftUI basics, view modifiers, MVVM, and navigation pa
 ## 🧭 Navigation
 
 ### `NavigationStack`
+- Navigation stack with value type.
+- Both NavigationLink and NavigationDestination should have a same data type for navigation.
 ```swift
 NavigationStack {
     List(items) { item in
