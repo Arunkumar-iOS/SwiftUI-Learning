@@ -1,64 +1,50 @@
+# 🎨 View Modifier
 
+### ✅ When to Use `ViewModifier` vs `View Extension`
 
-# View Modifier
+#### 🧾 What is `ViewModifier` in SwiftUI?
+- We can add **styling and behavior** (changing appearance or layout) to existing views.
+- Applying a `ViewModifier` to a view results in a **new version of that view** with modified appearance or behavior.
 
+---
 
-✅ When to Use ViewModifier vs View Extension
+### ✅ Use a `ViewModifier` when:
+- 🔧 You want to **pass parameters**
+- 🔄 You need **access to parent state**
+- ♻️ You want to **reuse the same styling with dynamic behaviour**
 
-✅ What is ViewModifier in SwiftUI?
+## 📝 Using ViewModifier With or Without Parameters
 
-* We can add a styling and behaviour to the existing views.
-* A ViewModifier is a way to encapsulate view styling or behavior logic that can be reused across different views. Applying a ViewModifier to a view results in a new version of that view with modified appearance or behavior.
+#### ✅ With Parameters (Stateful or Configurable Modifier)
 
-🧩 1. Use a ViewModifier Struct When:
-
-* The modifier needs to manage or receive external state (like a @Binding or internal logic).
-* You want customization, parameterization, or reuse with dynamic behavior.
-* You're applying a more complex transformation to a view.
-* You want to reduce repetition by reusing the same modifier logic.
-
-📝 Using ViewModifier With and Without Parameters
-
-* You can create a ViewModifier with or without initialization parameters depending on whether the modifier needs any external input (like @Binding, Bool, Color, etc.).
-
-✅ With Parameters (Stateful or Configurable Modifier)
-
-When your modifier needs input (like a flag or color, or Binding), define it with properties and pass them via an extension:
-
- ```swift
+```swift
 struct CardToolbar: ViewModifier {
-    
     @Environment(\.dismiss) var dismiss
-    
     @Binding var currentModal: ToolbarSelection?
 
     func body(content: Content) -> some View {
         content
         .toolbar {
-            //Top Toolbar
+            // Top Toolbar
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Done") {
                     dismiss()
                 }
             }
-            
-            //Bottom Toolbar
-            ToolbarItem(placement: .bottomBar) {
-              BottomToolbar(modal: $currentModal)
-            }
 
+            // Bottom Toolbar
+            ToolbarItem(placement: .bottomBar) {
+                BottomToolbar(modal: $currentModal)
+            }
         }
-    
         .sheet(item: $currentModal) { item in
-          switch item {
-          default:
-            Text(String(describing: item))
-          }
+            switch item {
+            default:
+                Text(String(describing: item))
+            }
         }
     }
 }
-
-Combine with a View extension for a clean API (.myCustomStyle()).
 
 extension View {
     func cardToolbar(currentModal: Binding<ToolbarSelection?>) -> some View {
@@ -66,19 +52,20 @@ extension View {
     }
 }
 
-We can preview the modifier like this.
+// ✅ Preview
 #Preview {
-  Color.yellow
-    .modifier(CardToolbar(currentModal: .constant(nil)))
+    Color.yellow
+        .modifier(CardToolbar(currentModal: .constant(nil)))
 }
 ```
 
+---
 
-✅ Without Parameters (Stateless Modifier)
+#### ✅ Without Parameters (Stateless Modifier)
 
-When your modifier doesn’t require any external data, you can define it without any parameters:
+When your modifier doesn’t require any external data, you can define it like this:
 
- ```swift
+```swift
 struct TitleStyleModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
@@ -92,21 +79,16 @@ extension View {
         self.modifier(TitleStyleModifier())
     }
 }
-
 ```
 
-Refer Cards Project if you have doubt.
-- [Reference Project](../../Cards/)
+---
 
+### 🧾 Use a View Extension Method (No Struct) When:
 
-🧾 2. Use a View Extension Method (No Struct) When:
+- 🎯 The styling is **simple**
+- ❌ You don't need **external state or customization**
 
-The modifier is simple and stateless.
-You don’t need external state or parameters.
-You just want to make code more readable and expressive.
-
-
- ```swift
+```swift
 extension View {
     func titleStyle() -> some View {
         self
@@ -115,11 +97,15 @@ extension View {
     }
 }
 ```
-Usage:
 
- ```swift
+✅ Usage:
+
+```swift
 Text("Welcome")
     .titleStyle()
-
 ```
 
+---
+
+📂 Refer Cards Project for real usage  
+🔗 [Reference Project](../../Cards/)
