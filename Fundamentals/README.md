@@ -18,6 +18,7 @@ A personal reference for SwiftUI basics, view modifiers, MVVM, and navigation pa
 - [📝 TextFields & Forms](#-textfields--forms)
 - [🔄 ForEach](#-foreach)
 - [🎨 Fonts & Colors](#-fonts--colors)
+- [🟦 Empty State View](#-empty-state-view)
 - [💡 Tips](#-tips)
 
 ---
@@ -65,6 +66,24 @@ struct ChildView: View {
     var counter: Int = 0
 }
 ```
+
+---
+## 🟦 Empty State View
+### ContentUnavailableView
+##### Use when no results from server particularly for showing list
+ ```swift
+ContentUnavailableView {
+    Label("No Tasks", systemImage: "tray")
+} description: {
+    Text("You haven't added any tasks yet.")
+} actions: {
+    Button("Add Task") {
+        // your action here
+    }
+}
+}
+```
+
 
 ---
 
@@ -182,11 +201,31 @@ extension View {
 ---
 
 ## 📌 Previews with SwiftData
+- We can show the sample data to preview for testing purpose.
+- One is for with data and other one is without data.
 ```swift
-#Preview("Sample Data") {
-    ContentView()
-        .modelContainer(for: [Wish.self], inMemory: true)
+#Preview("List with Sample Data") {
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: Wish.self, configurations: config)
+    
+    container.mainContext.insert(Wish(title: "Sample Wish 1"))
+    container.mainContext.insert(Wish(title: "Sample Wish 2"))
+    container.mainContext.insert(Wish(title: "Sample Wish 3"))
+    container.mainContext.insert(Wish(title: "Sample Wish 4"))
+    container.mainContext.insert(Wish(title: "Sample Wish 5"))
+    container.mainContext.insert(Wish(title: "Sample Wish 6"))
+
+    return ContentView()
+        .modelContainer(container)
 }
+
+
+#Preview("Empty List", body: {
+    
+    ContentView()
+    //in memory means use memory for storing data for temporary database particularly for Preview.
+        .modelContainer(for: [Wish.self], inMemory: true)
+})
 ```
 
 ---
