@@ -28,24 +28,111 @@ A personal reference for SwiftUI basics, view modifiers, MVVM, and navigation pa
 
 ## 🧭 Navigation
 
-### `NavigationStack`
-- Navigation stack with value type.
-- Both NavigationLink and NavigationDestination should have a same data type for navigation.
+## `NavigationStack`
+
+This guide covers the 3 main navigation approaches in SwiftUI using `NavigationStack`, `NavigationLink`, and `NavigationPath`. Each example includes comments to help you apply them in your own app.
+
+### ✅ 1. NavigationLink with Static Destination
+
+Use case: Basic navigation with direct destination.
+
 ```swift
-NavigationStack {
-    List(items) { item in
-        NavigationLink(item.title, value: item)
+
+
+
+
+Use case: Basic navigation with direct destination.
+
+```swift
+import SwiftUI
+
+struct StaticLinkExample: View {
+    var body: some View {
+        NavigationStack {
+            VStack {
+                // 👇 Static destination using NavigationLink
+                NavigationLink("Go to Next Screen") {
+                    // 🔁 This will be the next view shown when tapped
+                    EmptyView()
+                }
+            }
+            .navigationTitle("Static Link")
+        }
     }
-    .navigationDestination(for: Item.self) { item in
-        DetailView(item: item)
-    }
-    .navigationTitle("Items")
 }
 ```
 
-### `NavigationLink` (direct)
+### ✅ 2. NavigationLink with value and .navigationDestination(for:)
+
+Use case: Dynamic destinations, enum or value-driven routing.
+
 ```swift
-NavigationLink("Go to Details", destination: DetailView())
+import SwiftUI
+
+struct ValueLinkExample: View {
+    @State private var selectedValue: String?
+
+    var body: some View {
+        NavigationStack {
+            VStack {
+                // 👇 NavigationLink using value
+                NavigationLink("Go to Value-Based Screen", value: "go")
+
+                // 👇 You can also navigate programmatically
+                Button("Navigate with value") {
+                    selectedValue = "go"
+                }
+            }
+            // 👇 This defines what screen to show for the given value
+            .navigationDestination(for: String.self) { value in
+                // 🧠 You can return different views based on value
+                EmptyView()
+            }
+            .navigationTitle("Value Link")
+        }
+    }
+}
+
+```
+
+### ✅ 3. NavigationStack with path (Programmatic Navigation)
+
+Use case: Full programmatic navigation, custom routing, deep linking, push/pop multiple screens.
+
+```swift
+import SwiftUI
+
+struct PathBasedExample: View {
+    // 👇 Holds the entire stack of views
+    @State private var path: [String] = []
+
+    var body: some View {
+        NavigationStack(path: $path) {
+            VStack(spacing: 20) {
+                // 👇 Navigate to a single screen
+                Button("Go to Screen 1") {
+                    path.append("screen1")
+                }
+
+                // 👇 Navigate multiple screens deep instantly
+                Button("Go to 3 Screens") {
+                    path = ["screen1", "screen2", "screen3"]
+                }
+
+                // 👇 Pop back to root
+                Button("Pop to Root") {
+                    path = []
+                }
+            }
+            // 👇 Dynamically handle what view to show based on current path value
+            .navigationDestination(for: String.self) { value in
+                // 🔁 Each value in `path` pushes a view here
+                EmptyView()
+            }
+            .navigationTitle("Path Based")
+        }
+    }
+}
 ```
 
 ---

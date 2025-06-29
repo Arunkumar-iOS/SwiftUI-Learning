@@ -6,38 +6,20 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		6EA040582E11488200204A04 /* Stickers in Resources */ = {isa = PBXBuildFile; fileRef = 6EA040572E11488200204A04 /* Stickers */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
-		6E8455822E04FC85001DD870 /* Cards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cards.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6EA040572E11488200204A04 /* Stickers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Stickers; sourceTree = "<group>"; };
+		6EBE79072E1020F100DD9FA2 /* Paws.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Paws.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		6EA040562E1141F300204A04 /* Exceptions for "Cards" folder in "Cards" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 6E8455812E04FC85001DD870 /* Cards */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		6E8455842E04FC85001DD870 /* Cards */ = {
+		6EBE79092E1020F100DD9FA2 /* Paws */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				6EA040562E1141F300204A04 /* Exceptions for "Cards" folder in "Cards" target */,
-			);
-			path = Cards;
+			path = Paws;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		6E84557F2E04FC85001DD870 /* Frameworks */ = {
+		6EBE79042E1020F100DD9FA2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -47,19 +29,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6E8455792E04FC85001DD870 = {
+		6EBE78FE2E1020F100DD9FA2 = {
 			isa = PBXGroup;
 			children = (
-				6EA040572E11488200204A04 /* Stickers */,
-				6E8455842E04FC85001DD870 /* Cards */,
-				6E8455832E04FC85001DD870 /* Products */,
+				6EBE79092E1020F100DD9FA2 /* Paws */,
+				6EBE79082E1020F100DD9FA2 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		6E8455832E04FC85001DD870 /* Products */ = {
+		6EBE79082E1020F100DD9FA2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6E8455822E04FC85001DD870 /* Cards.app */,
+				6EBE79072E1020F100DD9FA2 /* Paws.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -67,75 +48,74 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6E8455812E04FC85001DD870 /* Cards */ = {
+		6EBE79062E1020F100DD9FA2 /* Paws */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6E84558D2E04FC86001DD870 /* Build configuration list for PBXNativeTarget "Cards" */;
+			buildConfigurationList = 6EBE79122E1020F200DD9FA2 /* Build configuration list for PBXNativeTarget "Paws" */;
 			buildPhases = (
-				6E84557E2E04FC85001DD870 /* Sources */,
-				6E84557F2E04FC85001DD870 /* Frameworks */,
-				6E8455802E04FC85001DD870 /* Resources */,
+				6EBE79032E1020F100DD9FA2 /* Sources */,
+				6EBE79042E1020F100DD9FA2 /* Frameworks */,
+				6EBE79052E1020F100DD9FA2 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				6E8455842E04FC85001DD870 /* Cards */,
+				6EBE79092E1020F100DD9FA2 /* Paws */,
 			);
-			name = Cards;
+			name = Paws;
 			packageProductDependencies = (
 			);
-			productName = Cards;
-			productReference = 6E8455822E04FC85001DD870 /* Cards.app */;
+			productName = Paws;
+			productReference = 6EBE79072E1020F100DD9FA2 /* Paws.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		6E84557A2E04FC85001DD870 /* Project object */ = {
+		6EBE78FF2E1020F100DD9FA2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1630;
 				LastUpgradeCheck = 1630;
 				TargetAttributes = {
-					6E8455812E04FC85001DD870 = {
+					6EBE79062E1020F100DD9FA2 = {
 						CreatedOnToolsVersion = 16.3;
 					};
 				};
 			};
-			buildConfigurationList = 6E84557D2E04FC85001DD870 /* Build configuration list for PBXProject "Cards" */;
+			buildConfigurationList = 6EBE79022E1020F100DD9FA2 /* Build configuration list for PBXProject "Paws" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 6E8455792E04FC85001DD870;
+			mainGroup = 6EBE78FE2E1020F100DD9FA2;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 6E8455832E04FC85001DD870 /* Products */;
+			productRefGroup = 6EBE79082E1020F100DD9FA2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6E8455812E04FC85001DD870 /* Cards */,
+				6EBE79062E1020F100DD9FA2 /* Paws */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		6E8455802E04FC85001DD870 /* Resources */ = {
+		6EBE79052E1020F100DD9FA2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6EA040582E11488200204A04 /* Stickers in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		6E84557E2E04FC85001DD870 /* Sources */ = {
+		6EBE79032E1020F100DD9FA2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -145,7 +125,7 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		6E84558B2E04FC86001DD870 /* Debug */ = {
+		6EBE79102E1020F200DD9FA2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -209,7 +189,7 @@
 			};
 			name = Debug;
 		};
-		6E84558C2E04FC86001DD870 /* Release */ = {
+		6EBE79112E1020F200DD9FA2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -266,20 +246,19 @@
 			};
 			name = Release;
 		};
-		6E84558E2E04FC86001DD870 /* Debug */ = {
+		6EBE79132E1020F200DD9FA2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Cards/Preview Content\"";
 				DEVELOPMENT_TEAM = 94UTDTPAJV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Cards/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -287,7 +266,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.company.cards;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apple.Paws;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -295,20 +274,19 @@
 			};
 			name = Debug;
 		};
-		6E84558F2E04FC86001DD870 /* Release */ = {
+		6EBE79142E1020F200DD9FA2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Cards/Preview Content\"";
 				DEVELOPMENT_TEAM = 94UTDTPAJV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Cards/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -316,7 +294,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.company.cards;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apple.Paws;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -327,25 +305,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6E84557D2E04FC85001DD870 /* Build configuration list for PBXProject "Cards" */ = {
+		6EBE79022E1020F100DD9FA2 /* Build configuration list for PBXProject "Paws" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6E84558B2E04FC86001DD870 /* Debug */,
-				6E84558C2E04FC86001DD870 /* Release */,
+				6EBE79102E1020F200DD9FA2 /* Debug */,
+				6EBE79112E1020F200DD9FA2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6E84558D2E04FC86001DD870 /* Build configuration list for PBXNativeTarget "Cards" */ = {
+		6EBE79122E1020F200DD9FA2 /* Build configuration list for PBXNativeTarget "Paws" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6E84558E2E04FC86001DD870 /* Debug */,
-				6E84558F2E04FC86001DD870 /* Release */,
+				6EBE79132E1020F200DD9FA2 /* Debug */,
+				6EBE79142E1020F200DD9FA2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 6E84557A2E04FC85001DD870 /* Project object */;
+	rootObject = 6EBE78FF2E1020F100DD9FA2 /* Project object */;
 }

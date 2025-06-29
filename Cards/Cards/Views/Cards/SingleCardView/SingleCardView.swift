@@ -48,7 +48,7 @@ struct SingleCardView: View  {
         NavigationStack {
             content
             //This holds the cards toolbar like top and bottom of cards screen.
-                .cardToolbar(currentModal: $currentModal)
+                .cardToolbar(card: $card, currentModal: $currentModal)
 
         }
         

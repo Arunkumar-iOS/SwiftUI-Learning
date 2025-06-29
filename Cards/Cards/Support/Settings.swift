@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+//Defining constant value like this is far far better.
 enum Settings {
   static let cardSize =
     CGSize(width: 1300, height: 2000)
