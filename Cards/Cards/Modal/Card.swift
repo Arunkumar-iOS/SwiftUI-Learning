@@ -33,6 +33,13 @@ struct Card: Identifiable {
         }
       }
     }
+    
+    mutating func remove(_ element: CardElement) {
+      if let index = element.index(in: elements) {
+        elements.remove(at: index)
+      }
+    }
+
 
     
 }

@@ -24,6 +24,15 @@ struct CardsListView: View  {
             VStack {
                 ForEach(store.cards) { card in
                     CardThumbnail(card: card)
+                        .contextMenu {
+                            
+                            Button(role: .destructive) {
+                                store.removeCard(card)
+                            } label: {
+                                Label("Delete", systemImage: "trash")
+                            }
+
+                        }
                         .onTapGesture {
                             selectedCard = card
                         }

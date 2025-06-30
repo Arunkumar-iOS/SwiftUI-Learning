@@ -19,13 +19,17 @@ struct CardDetailView: View {
       card.backgroundColor
         ForEach($card.elements, id: \.id) { $element in
           CardElementView(element: element)
+            //This modifier is used to copy and paste from this app to other app.   
+                .elementContextMenu(
+                  card: $card,
+                  element: $element)
                 .resizableView(transform: $element.transform)
             .frame(
               width: element.transform.size.width,
               height: element.transform.size.height)
         }
 
-    }//: MARK
+    }//: ZSTACK
       //This modifier supports drag and drop from other apps like from safari.
       
     .dropDestination(for: CustomTransfer.self) { items, location in
