@@ -37,13 +37,6 @@ This guide covers the 3 main navigation approaches in SwiftUI using `NavigationS
 Use case: Basic navigation with direct destination.
 
 ```swift
-
-
-
-
-Use case: Basic navigation with direct destination.
-
-```swift
 import SwiftUI
 
 struct StaticLinkExample: View {
@@ -134,7 +127,6 @@ struct PathBasedExample: View {
     }
 }
 ```
-
 ---
 ## ✅ Swipe Left & Right in List
 
@@ -156,7 +148,7 @@ Use `.swipeActions(edge:)` to add buttons when swiping left or right on a row in
             .background(Color.green)
     }
 }
-
+```
 ---
 
 ## 🛠 Toolbar Usage
@@ -175,10 +167,11 @@ Use `.swipeActions(edge:)` to add buttons when swiping left or right on a row in
         }
     }
 }
-
+```
 #### 🔹 Multiple Toolbar Buttons (Grouped)
  - Use ToolbarItemGroup when you want to display more than one item (like Edit + Delete).
- 
+
+ ```swift
 .toolbar {
     ToolbarItemGroup(placement: .navigationBarTrailing) {
         Button {
@@ -194,7 +187,7 @@ Use `.swipeActions(edge:)` to add buttons when swiping left or right on a row in
         }
     }
 }
-
+```
 ---
 
 ## 📍 Place a View at the Bottom of the Screen
