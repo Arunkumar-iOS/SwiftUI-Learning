@@ -30,7 +30,7 @@ struct CardToolbar: ViewModifier {
             
             //Bottom Toolbar
             ToolbarItem(placement: .bottomBar) {
-              BottomToolbar(modal: $currentModal)
+                BottomToolbar(card: $card, modal: $currentModal)
             }
 
         }

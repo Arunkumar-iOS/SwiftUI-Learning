@@ -37,26 +37,34 @@ struct ToolbarButton: View {
 }
 
 
-struct BottomToolbar: View  {
-    
-    @Binding var modal: ToolbarSelection?
-    
-    var body: some View {
-        
-        HStack {
-            ForEach(ToolbarSelection.allCases) { selection in
-                Button {
-                    modal = selection
-                } label: {
-                    ToolbarButton(modal: selection)
-                }
-            }
+struct BottomToolbar: View {
+  @Binding var card: Card
+  @Binding var modal: ToolbarSelection?
+
+  var body: some View {
+    HStack {
+      ForEach(ToolbarSelection.allCases) { selection in
+        switch selection {
+        //BottomToolbar now owns the photo picker view.
+        case .photoModal:
+          Button {
+          } label: {
+            PhotosModal(card: $card)
+          }
+        default:
+          Button {
+            modal = selection
+          } label: {
+            ToolbarButton(modal: selection)
+          }
         }
-        
+      }
     }
+  }
 }
 
 
 #Preview {
-    BottomToolbar(modal: .constant(.photoModal))
+    BottomToolbar(card: .constant(Card()), modal: .constant(.photoModal))
 }
+

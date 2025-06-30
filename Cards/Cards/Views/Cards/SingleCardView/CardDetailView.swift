@@ -25,7 +25,32 @@ struct CardDetailView: View {
               height: element.transform.size.height)
         }
 
+    }//: MARK
+      //This modifier supports drag and drop from other apps like from safari.
+      
+    .dropDestination(for: CustomTransfer.self) { items, location in
+      print(location)
+      Task {
+        await MainActor.run {
+          card.addElements(from: items)
+        }
+      }
+      return !items.isEmpty
     }
+
+      
+      //This one for Image alone. We have created a custom type so it won't needed.
+      /*
+    .dropDestination(for: Data.self) { receivedData, location in
+      print(location)
+      for data in receivedData {
+        if let image = UIImage(data: data) {
+          card.addElement(uiImage: image)
+        }
+      }
+      return !receivedData.isEmpty
+    } */
+
   }
 }
 
