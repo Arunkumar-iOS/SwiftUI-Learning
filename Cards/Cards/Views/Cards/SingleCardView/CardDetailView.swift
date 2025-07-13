@@ -15,21 +15,39 @@ struct CardDetailView: View {
 
   var body: some View {
     // 2
-    ZStack {
-      card.backgroundColor
-        ForEach($card.elements, id: \.id) { $element in
-          CardElementView(element: element)
-            //This modifier is used to copy and paste from this app to other app.   
-                .elementContextMenu(
-                  card: $card,
-                  element: $element)
-                .resizableView(transform: $element.transform)
-            .frame(
-              width: element.transform.size.width,
-              height: element.transform.size.height)
-        }
+      ZStack {
+          card.backgroundColor
+          //When the user taps card background, you should clear the store selected element.
+              .onTapGesture {
+                  store.selectedElement = nil
+              }
+          
+          ForEach($card.elements, id: \.id) { $element in
+              CardElementView(element: element)
+              //This modifier is used to copy and paste from this app to other app.
+                  .elementContextMenu(
+                    card: $card,
+                    element: $element)
+                  .resizableView(transform: $element.transform)
+                  .frame(
+                    width: element.transform.size.width,
+                    height: element.transform.size.height)
+                  .onTapGesture {
+                      store.selectedElement = element
+                  }
+                  .border(
+                    Settings.borderColor,
+                    width: isSelected(element) ? Settings.borderWidth : 0)
+                  
 
-    }//: ZSTACK
+          }
+          
+      }//: ZSTACK
+      
+      .onDisappear {
+        store.selectedElement = nil
+      }      
+      
       //This modifier supports drag and drop from other apps like from safari.
       
     .dropDestination(for: CustomTransfer.self) { items, location in
@@ -56,6 +74,12 @@ struct CardDetailView: View {
     } */
 
   }
+    
+    //Check whether selected element is current element
+    func isSelected(_ element: CardElement) -> Bool {
+      store.selectedElement?.id == element.id
+    }
+
 }
 
 #Preview {
@@ -63,3 +87,6 @@ struct CardDetailView: View {
   CardDetailView(card: $card)
     .environmentObject(CardStore(defaultData: true))
 }
+
+
+

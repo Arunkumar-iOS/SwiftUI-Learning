@@ -14,7 +14,10 @@ struct CardElementView: View {
 
   var body: some View {
     if let element = element as? ImageElement {
-      ImageElementView(element: element)
+        ImageElementView(element: element)
+          .clip()
+          
+
     }
     if let element = element as? TextElement {
       TextElementView(element: element)
@@ -31,6 +34,7 @@ struct ImageElementView: View {
     element.image
       .resizable()
       .aspectRatio(contentMode: .fit)
+
   }
 }
 
@@ -52,4 +56,21 @@ struct TextElementView: View {
 
 #Preview {
     CardElementView(element: initialElements[0])
+}
+
+
+// 1
+private extension ImageElementView {
+  // The ViewBuilder attribute allows you to build up views and combine them into one.
+  @ViewBuilder
+  func clip() -> some View {
+    // 3
+    if let frameIndex = element.frameIndex {
+      // 4
+      let shape = Shapes.shapes[frameIndex]
+      self
+         .clipShape(shape)
+         .contentShape(Ellipse())
+    } else { self }
+  }
 }

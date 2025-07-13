@@ -23,7 +23,16 @@ struct Card: Identifiable {
       elements.append(text)
     }
     
+    mutating func update(_ element: CardElement?, frameIndex: Int) {
+      guard element is ImageElement,
+            let index = element?.index(in: elements),
+            var imageElement = elements[index] as? ImageElement
+        else { return }
+      imageElement.frameIndex = frameIndex
+      elements[index] = imageElement
+     }
     
+    // We have created a CustomTransfer object that takes care of transferable like getting image or text fro other apps.
     mutating func addElements(from transfer: [CustomTransfer]) {
       for element in transfer {
         if let text = element.text {

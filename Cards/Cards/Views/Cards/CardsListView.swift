@@ -13,6 +13,7 @@ struct CardsListView: View  {
     
     //Local state property
     @State private var isPresented = false
+    //Whenever the value gets updated in the state property, view body will redraws all.
     @State private var selectedCard: Card?
     
     //Shared state property

@@ -11,6 +11,9 @@ import SwiftUI
 
 struct CardToolbar: ViewModifier {
     
+    @EnvironmentObject var store: CardStore
+    @State private var frameIndex: Int?
+    
     @Binding var card: Card
     @State private var stickerImage: UIImage?
     
@@ -94,6 +97,16 @@ struct CardToolbar: ViewModifier {
                   }
                   stickerImage = nil
                 }
+          case .frameModal:
+            FrameModal(frameIndex: $frameIndex)
+              .onDisappear {
+                if let frameIndex {
+                  card.update(
+                    store.selectedElement,
+                    frameIndex: frameIndex)
+                }
+                frameIndex = nil
+              }
 
           
           default:
@@ -114,5 +127,7 @@ extension View {
   Color.yellow
     .modifier(CardToolbar(
         card: .constant(Card()), currentModal: .constant(nil)))
+    .environmentObject(CardStore(defaultData: true))
+
 }
 

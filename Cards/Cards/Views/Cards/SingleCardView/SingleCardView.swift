@@ -59,4 +59,6 @@ struct SingleCardView: View  {
 
 #Preview {
     SingleCardView(card: .constant(initialCards[0]))
+        .environmentObject(CardStore(defaultData: true))
+
 }
